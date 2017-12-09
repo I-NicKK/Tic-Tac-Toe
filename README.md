@@ -1,8 +1,10 @@
-# Reinforcement Learning tic-tac-toe
+# Policy Gradient Learning tic-tac-toe
 
-Python code to train agents to play tic-tac-toe using RL policy gradients.
+#Siraj Raval Coding challenge 09/12/17
 
-## Usage
+Python code to train agents to play tic-tac-toe using policy gradients.
+
+## How to use
 
 Run
 ```shell
@@ -26,5 +28,6 @@ For more information, run
 ```shell
 $ ./script_name.py -h
 ```
-## Notes
+## Requirements
 Python 3 required.
+run requirements.txt
