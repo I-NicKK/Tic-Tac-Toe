@@ -55,30 +55,27 @@ class TTTBoard(object):
         Returns
         -------
         result: boolean
-            True if the game is over, False otherwise.
+            True:  Game Over
+            False: Not Over
         winner: int
-            1 for p1, -1 for p2, 0 for tie and -1 is the game is not over.
+            1:  player 1
+            -1: player 2 / not over
+            0:  tie
         """
-        board = self.get_board()
+        # init
         result, winner = False, -1
-        if board[0] != 0 and len(set(board[:3])) == 1:
-            result, winner = True, board[0]
-        elif board[3] != 0 and len(set(board[3:6])) == 1:
-            result, winner = True, board[3]
-        elif board[6] != 0 and len(set(board[6:])) == 1:
-            result, winner = True, board[6]
-        elif board[0] != 0 and len(set([board[i] for i in (0, 3, 6)])) == 1:
-            result, winner = True, board[0]
-        elif board[1] != 0 and len(set([board[i] for i in (1, 4, 7)])) == 1:
-            result, winner = True, board[1]
-        elif board[2] != 0 and len(set([board[i] for i in (2, 5, 8)])) == 1:
-            result, winner = True, board[2]
-        elif board[0] != 0 and len(set([board[i] for i in (0, 4, 8)])) == 1:
-            result, winner = True, board[0]
-        elif board[2] != 0 and len(set([board[i] for i in (2, 4, 6)])) == 1:
-            result, winner = True, board[2]
-        elif not self.get_empty_pos():
+        
+        # Check for winner logic
+        board = np.array(self.get_board())
+        for bool_board, player in [(board == -1, -1), (board == 1, 1)]:
+            a, b, c, d, e, f, g, h, i = bool_board
+            if e & (d & f | b & h | a & i | g & c) | a & (b & c | d & g) | i & (g & h | c & f):
+                return True, player
+
+        # Check for a tie
+        if not self.get_empty_pos():
             result, winner = True, 0
+            
         return result, winner
 
     def __str__(self):
